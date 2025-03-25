@@ -1,5 +1,6 @@
 import { Stripe } from "stripe";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 interface Props {
     product: Stripe.Product;
@@ -7,6 +8,8 @@ interface Props {
 
 export const ProductDetail = ({ product }: Props) => {
     const price = product.default_price as Stripe.Price;
+
+
 
     return (
         <div> 
@@ -30,6 +33,14 @@ export const ProductDetail = ({ product }: Props) => {
                     ${(price.unit_amount / 100).toFixed(2)}
                 </p>
                 )}
+
+                <div className="flex items-center space-x-4">
+                  <Button variant="outline" onClick={() => removeItem(product.id)}>
+                    –
+                    </Button>
+                  <span className="text-lg font-semibold">{quantity}</span>
+                  <Button onClick={onAddItem}>+</Button>
+                </div>
             </div> 
         </div>
     );
